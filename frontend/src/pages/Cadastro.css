@@ -1,0 +1,64 @@
+body {
+    background: linear-gradient(135deg, #6a1b9a 0%, #ff8f00 100%);
+    background-attachment: fixed;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Header_Container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#Titulo {
+    color: #ffffff;
+    font-size: 28px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+}
+
+#Caixa_Cadastro {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+#Caixa_Cadastro h2 {
+    color: #6a1b9a;
+    margin-bottom: 20px;
+}
+
+.form_cadastro {
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+    gap: 15px;
+}
+
+.form_cadastro input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline-color: #6a1b9a;
+}

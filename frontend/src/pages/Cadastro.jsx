@@ -1,3 +1,4 @@
+import './Cadastro.css';
 import { useState } from 'react';
 
 function Cadastro() {
@@ -31,16 +32,49 @@ function Cadastro() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h2>Mini Tela de Cadastro - Teste</h2>
-      <form onSubmit={realizarCadastro} style={{ display: 'flex', flexDirection: 'column', width: '300px', gap: '10px' }}>
-        <input type="text" placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} required />
-        <input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-        <button type="submit" style={{ padding: '10px', background: '#4CAF50', color: 'white', border: 'none', cursor: 'pointer' }}>
-          Salvar no Banco
-        </button>
-      </form>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <div className="Header_Container">
+        <h1 id="Titulo">Tela de Cadastro</h1>
+      </div>
+
+      <div id="Caixa_Cadastro">
+        <h2>Cadastro</h2>
+        
+        <form onSubmit={realizarCadastro} className="form_cadastro">
+          <input 
+            type="text" 
+            placeholder="Nome completo" 
+            value={nome} 
+            onChange={(e) => setNome(e.target.value)} 
+            required 
+          />
+          <input 
+            type="email" 
+            placeholder="E-mail" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
+          <input 
+            type="password" 
+            placeholder="Senha" 
+            value={senha} 
+            onChange={(e) => setSenha(e.target.value)} 
+            required 
+          />
+          <button type="submit" style={{ 
+            padding: '12px', 
+            background: '#6a1b9a', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '5px',
+            fontWeight: 'bold',
+            cursor: 'pointer' 
+          }}>
+            Salvar no Banco
+          </button>
+        </form>
+      </div>     
     </div>
   );
 }
