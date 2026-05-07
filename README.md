@@ -93,8 +93,14 @@ Instale as dependências do React:
 ```Bash
 npm install
 ```
-Inicie o servidor de desenvolvimento web:
 
+Para garantir que a navegação do site e os gráficos do painel de controle funcionem perfeitamente, certifique-se de instalar o Router e o Recharts:
+
+```Bash
+npm install react-router-dom
+npm install recharts
+```
+Inicie o servidor de desenvolvimento web:
 ```Bash
 npm run dev
 ```
