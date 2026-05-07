@@ -32,7 +32,7 @@ function Cadastro() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+    <div className="cadastro_container">
       <div className="Header_Container">
         <h1 id="Titulo">Tela de Cadastro</h1>
       </div>
@@ -74,7 +74,7 @@ function Cadastro() {
             Salvar no Banco
           </button>
         </form>
-      </div>     
+      </div>    
     </div>
   );
 }

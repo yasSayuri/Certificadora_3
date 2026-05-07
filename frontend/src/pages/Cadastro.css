@@ -1,4 +1,4 @@
-body {
+.cadastro_container {
     background: linear-gradient(135deg, #6a1b9a 0%, #ff8f00 100%);
     background-attachment: fixed;
     color: #333;
@@ -10,6 +10,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
+    box-sizing: border-box;
 }
 
 .Header_Container {

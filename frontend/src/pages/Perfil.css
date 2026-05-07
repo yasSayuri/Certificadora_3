@@ -1,4 +1,4 @@
-body {
+.perfil_container {
     background: linear-gradient(135deg, #6a1b9a 0%, #ff8f00 100%);
     background-attachment: fixed;
     min-height: 100vh;

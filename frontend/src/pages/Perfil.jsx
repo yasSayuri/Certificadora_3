@@ -9,8 +9,8 @@ function Perfil({ usuario }) {
 
   const inicial = dados.nome.charAt(0).toUpperCase();
 
-  return (
-    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+return (
+    <div className="perfil_container">
       <div className="Header_Container">
         <h1 id="Titulo">Meu Perfil</h1>
       </div>
