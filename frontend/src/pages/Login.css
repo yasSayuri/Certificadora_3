@@ -1,0 +1,56 @@
+#Caixa_Login {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    padding: 40px;
+    text-align: center;
+}
+
+#Caixa_Login h2 {
+    color: #6a1b9a;
+    margin-bottom: 20px;
+}
+
+.form_login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form_login input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline-color: #6a1b9a;
+}
+
+.Botao_Acessar {
+    padding: 12px;
+    background: #6a1b9a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.Botao_Acessar:hover {
+    background: #4a148c;
+}
+
+.Trocar_Tela {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.Trocar_Tela span {
+    color: #6a1b9a;
+    cursor: pointer;
+    font-weight: bold;
+}

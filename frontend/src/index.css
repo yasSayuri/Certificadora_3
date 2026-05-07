@@ -4,3 +4,32 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+
+body {
+    background: linear-gradient(135deg, #6a1b9a 0%, #ff8f00 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.Header_Container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 10px;
+}
+
+#Titulo {
+    color: #ffffff;
+    font-size: 24px;
+    text-transform: uppercase;
+}

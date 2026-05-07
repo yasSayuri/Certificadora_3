@@ -1,0 +1,28 @@
+#Caixa_Certificados {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.Tabela_Certificados {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Tabela_Certificados th, .Tabela_Certificados td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.Botao_Download {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
