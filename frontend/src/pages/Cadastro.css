@@ -1,66 +1,119 @@
 .cadastro_container {
     background: linear-gradient(135deg, #6a1b9a 0%, #ff8f00 100%);
     background-attachment: fixed;
-    color: #333;
-    font-family: 'Open Sans', sans-serif;
-    line-height: 1.6;
-    padding: 20px;
-    margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100vw;
-    box-sizing: border-box;
-}
-
-.Header_Container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 10px;
-    border-radius: 10px;
-}
-
-#Titulo {
-    color: #ffffff;
-    font-size: 28px;
-    text-transform: uppercase;
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #Caixa_Cadastro {
     background-color: #ffffff;
     width: 100%;
-    max-width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.15); /* Sombra 3D */
+    padding: 50px 40px;
+    text-align: center;
 }
 
 #Caixa_Cadastro h2 {
     color: #6a1b9a;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+}
+
+.cadastro_subtitulo {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 15px;
 }
 
 .form_cadastro {
     display: flex; 
     flex-direction: column; 
-    width: 100%; 
-    gap: 15px;
+    gap: 18px;
 }
 
 .form_cadastro input {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    outline-color: #6a1b9a;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form_cadastro input:focus {
+    border-color: #6a1b9a;
+    box-shadow: 0 0 8px rgba(106, 27, 154, 0.2);
+}
+
+.Botao_Cadastrar {
+    padding: 15px;
+    background: #6a1b9a; 
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s, background 0.3s;
+    margin-top: 10px;
+}
+
+.Botao_Cadastrar:hover {
+    background: #4a136c;
+    transform: translateY(-2px);
+}
+
+.Trocar_Tela {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.Trocar_Tela a {
+    color: #ff8f00; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.Trocar_Tela a:hover {
+    color: #e67e00; 
+}
+
+.header_cadastro {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: -15px;
+}
+
+.botao_voltar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.botao_voltar:hover {
+    background-color: rgba(106, 27, 154, 0.1);
+}
+
+.botao_voltar svg {
+    transition: transform 0.3s ease;
+}
+
+.botao_voltar:hover svg {
+    transform: translateX(-4px); 
 }

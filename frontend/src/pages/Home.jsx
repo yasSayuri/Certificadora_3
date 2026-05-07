@@ -6,7 +6,6 @@ function Home() {
     <div className="home_container">
       <div className="home_box">
         
-        {/* LADO ESQUERDO: Degradê com os Textos */}
         <div className="home_left">
           <h1 className="home_titulo">NoteBook</h1>
           <p className="home_subtitulo">Organização para as meninas digitais!</p>
@@ -17,9 +16,7 @@ function Home() {
           </p>
         </div>
 
-        {/* LADO DIREITO: Branco com Avatar e Botões */}
         <div className="home_right">
-          {/* Avatar imitando o ícone da sua imagem de referência */}
           <div className="icon_placeholder">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="#7c06aa" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="8" r="5"></circle>
