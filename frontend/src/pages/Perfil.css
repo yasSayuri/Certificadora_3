@@ -1,39 +1,118 @@
-.perfil_container {
-    background: linear-gradient(135deg, #6a1b9a 0%, #ff8f00 100%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    margin: 0;
+.perfil_layout {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: #e7dceb;
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 20px;
+    gap: 30px;
+    overflow: hidden;
 }
 
-.Header_Container {
+.sidebar {
+    width: 260px;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar_logo {
+    color: #6a1b9a;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-size: 28px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.sidebar_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
+.nav_item {
     display: flex;
     align-items: center;
-    margin: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 30px;
-    padding-left: 60px;
-    padding-right: 60px;
+    gap: 12px;
+    text-decoration: none;
+    color: #888;
+    padding: 12px 20px;
     border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav_item:hover {
+    background-color: rgba(106, 27, 154, 0.05);
+    color: #6a1b9a;
+}
+
+.nav_item.active {
+    background-color: #6a1b9a;
+    color: white;
+}
+
+.nav_logout {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    text-decoration: none;
+    color: #ff8f00;
+    padding: 12px 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav_logout:hover {
+    color: #e67e00;
+}
+
+.perfil_main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.perfil_header {
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 #Titulo {
-    color: #ffffff;
-    font-size: 24px;
-    text-transform: uppercase;
-    padding: center;
-  }
+    color: #6a1b9a;
+    font-weight: bold;
+    margin: 0;
+    font-size: 26px;
+}
+
+.perfil_content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
 #Caixa_Perfil {
     background-color: #ffffff;
     width: 100%;
     max-width: 500px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    padding: 40px;
     text-align: center;
 }
 
@@ -82,6 +161,7 @@
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 .Botao_Editar:hover {
