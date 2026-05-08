@@ -69,7 +69,15 @@ Instale todas as dependências do Node:
 
 ```Bash
 npm install
+npm install bcrypt
 ```
+
+Para garantir que a navegação do site e os gráficos do painel de controle funcionem perfeitamente, certifique-se de instalar o Router e o Recharts:
+
+```Bash
+npm install bcrypt
+```
+
 Crie um arquivo chamado .env na raiz da pasta backend com o seguinte conteúdo para conectar com o banco local:
 
 ```bash
