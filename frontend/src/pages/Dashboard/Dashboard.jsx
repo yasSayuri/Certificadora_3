@@ -1,13 +1,16 @@
 import './Dashboard.css';
-import GraficoEventos from './GraficoEventos';
-import Sidebar from './Sidebar';
+import GraficoEventos from '../Componentes/GraficoEventos';
+import Sidebar from '../Componentes/Sidebar';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [primeiroNome, setPrimeiroNome] = useState('User');
   const [saudacao, setSaudacao] = useState('Bem-vindo(a)');
   const [popup, setPopup] = useState({ visivel: false, mensagem: '', tipo: '' });
   
+  const navigate = useNavigate();
+
   const mostrarPopup = (mensagem, tipo = 'erro') => {
     setPopup({ visivel: true, mensagem, tipo });
     setTimeout(() => {
@@ -43,9 +46,9 @@ function Dashboard() {
   }, []);
 
   const acoes = [
-    { id: 1, titulo: "Meus Agendamentos", desc: "Veja suas palestras marcadas" },
-    { id: 2, titulo: "Nova Inscrição", desc: "Inscreva-se em novos eventos" },
-    { id: 3, titulo: "Certificados", desc: "Baixe seus comprovantes" }
+    { id: 1, titulo: "Meus Agendamentos", desc: "Veja suas palestras marcadas", rota: "/calendario" },
+    { id: 2, titulo: "Nova Inscrição", desc: "Inscreva-se em novos eventos", rota: "/ListaEventos" },
+    { id: 3, titulo: "Certificados", desc: "Baixe seus comprovantes", rota: "/certificados" }
   ];
 
   return (
@@ -73,7 +76,7 @@ function Dashboard() {
               <div key={acao.id} className="Card_Dash">
                 <h3>{acao.titulo}</h3>
                 <p>{acao.desc}</p>
-                <button className="Botao_Dash">Acessar</button>
+                <button className="Botao_Dash" onClick={() => navigate(acao.rota)}>Acessar</button>
               </div>
             ))}
           </div>
