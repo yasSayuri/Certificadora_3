@@ -59,10 +59,43 @@
     align-items: flex-start;
     gap: 10px;
     transition: transform 0.2s ease;
+    position: relative;
 }
 
 .Card_Evento:hover {
     transform: translateY(-4px);
+}
+
+.Acoes_Card {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.Btn_Icone {
+    background: transparent;
+    border: none;
+    color: #bbb;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.Btn_Icone:hover.edit {
+    color: #6a1b9a;
+}
+
+.Btn_Icone:hover.del {
+    color: #d32f2f;
+}
+
+.Header_Card_Info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 5px;
 }
 
 .Badge_Tipo {
@@ -70,10 +103,23 @@
     color: white;
     padding: 6px 12px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    display: inline-block;
+    width: max-content;
+}
+
+.Badge_Inscrito {
+    background: #db2997;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    width: max-content;
 }
 
 .Card_Evento h3 {
@@ -81,6 +127,7 @@
     color: #6a1b9a;
     font-size: 1.2rem;
     line-height: 1.3;
+    padding-right: 50px; 
 }
 
 .Card_Evento p {
@@ -104,6 +151,16 @@
 
 .Botao_Increver:hover {
     background: #6a1b9a;
+    color: white;
+}
+
+.Botao_Increver.cancelar {
+    color: #d32f2f;
+    border-color: #d32f2f;
+}
+
+.Botao_Increver.cancelar:hover {
+    background: #d32f2f;
     color: white;
 }
 

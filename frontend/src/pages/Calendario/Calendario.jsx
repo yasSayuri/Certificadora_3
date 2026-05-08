@@ -7,6 +7,11 @@ function Calendario() {
   const [eventosBD, setEventosBD] = useState([]);
   const [busca, setBusca] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState(null);
+  
+  const [mostrarOutros, setMostrarOutros] = useState(true);
+  const [mostrarMeus, setMostrarMeus] = useState(true);
+
+  const idUsuario = localStorage.getItem('idUsuario');
 
   const meses = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -62,16 +67,19 @@ function Calendario() {
         ? evento.data.split('/').reverse().join('-') 
         : evento.data;
       
+      const isInscrito = evento.inscritos && evento.inscritos.includes(idUsuario);
+      
+      const coincideFiltro = (mostrarMeus && isInscrito) || (mostrarOutros && !isInscrito);
       const coincideData = dataFormatada === dataString;
       const coincideBusca = evento.nome.toLowerCase().includes(busca.toLowerCase());
       
-      return coincideData && coincideBusca;
+      return coincideData && coincideBusca && coincideFiltro;
     });
   };
 
   return (
     <div className="dashboard_layout">
-      <Sidebar paginaAtiva="" />
+      <Sidebar paginaAtiva="calendario" />
 
       <main className="dashboard_main">
         <header className="header_calendario">
@@ -98,6 +106,26 @@ function Calendario() {
                 onChange={(e) => setBusca(e.target.value)} 
               />
             </div>
+            <div className="filtros_checkboxes">
+              <label className="checkbox_label">
+                <input 
+                  type="checkbox" 
+                  checked={mostrarOutros} 
+                  onChange={(e) => setMostrarOutros(e.target.checked)} 
+                />
+                <span className="dot_legend" style={{ background: '#6a1b9a' }}></span>
+                Outros Eventos
+              </label>
+              <label className="checkbox_label">
+                <input 
+                  type="checkbox" 
+                  checked={mostrarMeus} 
+                  onChange={(e) => setMostrarMeus(e.target.checked)} 
+                />
+                <span className="dot_legend" style={{ background: '#db2997' }}></span>
+                Meus Eventos
+              </label>
+            </div>
           </div>
         </header>
 
@@ -119,14 +147,19 @@ function Calendario() {
                   >
                     {dia && <span className="Numero_Dia">{dia}</span>}
                     <div className="Eventos_Dots_Wrapper">
-                      {eventosDia.map(ev => (
-                        <div 
-                          key={ev._id} 
-                          className="Evento_Dot_Fofo" 
-                          data-tooltip={ev.nome}
-                          style={{ background: ev.tipo === 'Palestra' ? '#ff8f00' : '#6a1b9a' }}
-                        ></div>
-                      ))}
+                      {eventosDia.map(ev => {
+                        const isInscrito = ev.inscritos && ev.inscritos.includes(idUsuario);
+                        const corDot = isInscrito ? '#db2997' : (ev.tipo === 'Palestra' ? '#ff8f00' : '#6a1b9a');
+                        
+                        return (
+                          <div 
+                            key={ev._id} 
+                            className="Evento_Dot_Fofo" 
+                            data-tooltip={ev.nome}
+                            style={{ background: corDot }}
+                          ></div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -140,16 +173,21 @@ function Calendario() {
                 <h3 className="detalhes_titulo">Eventos do dia {diaSelecionado}</h3>
                 <div className="lista_detalhes_scroll">
                   {getEventosDoDia(diaSelecionado).length > 0 ? (
-                    getEventosDoDia(diaSelecionado).map(ev => (
-                      <div key={ev._id} className="card_detalhe_item">
-                        <span className="tipo_tag" style={{ background: ev.tipo === 'Palestra' ? '#ff8f00' : '#6a1b9a' }}>
-                          {ev.tipo}
-                        </span>
-                        <h4>{ev.nome}</h4>
-                        <p><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"/></svg> {ev.horarioInicio} - {ev.horarioTermino}</p>
-                        <p><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-75.5-188.5T480-820q-104 0-179.5 79.5T225-552q0 71 59 162.5T480-186Z"/></svg> {ev.local}</p>
-                      </div>
-                    ))
+                    getEventosDoDia(diaSelecionado).map(ev => {
+                      const isInscrito = ev.inscritos && ev.inscritos.includes(idUsuario);
+                      const corTag = isInscrito ? '#db2997' : (ev.tipo === 'Palestra' ? '#ff8f00' : '#6a1b9a');
+
+                      return (
+                        <div key={ev._id} className="card_detalhe_item" style={{ borderLeft: isInscrito ? '4px solid #db2997' : '1px solid #eee' }}>
+                          <span className="tipo_tag" style={{ background: corTag }}>
+                            {isInscrito ? 'Inscrita' : ev.tipo}
+                          </span>
+                          <h4>{ev.nome}</h4>
+                          <p><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"/></svg> {ev.horarioInicio} - {ev.horarioTermino}</p>
+                          <p><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-75.5-188.5T480-820q-104 0-179.5 79.5T225-552q0 71 59 162.5T480-186Z"/></svg> {ev.local}</p>
+                        </div>
+                      )
+                    })
                   ) : (
                     <p className="sem_nada">Nenhum evento neste dia.</p>
                   )}

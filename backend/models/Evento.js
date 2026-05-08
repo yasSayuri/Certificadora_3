@@ -7,7 +7,8 @@ const eventoSchema = new mongoose.Schema({
   horarioTermino: { type: String, required: true },
   local: { type: String, required: true },
   vagas: { type: Number, required: true },
-  tipo: { type: String, required: true }
+  tipo: { type: String, required: true },
+  inscritos: { type: [String], default: [] }
 });
 
 module.exports = mongoose.model('Evento', eventoSchema);

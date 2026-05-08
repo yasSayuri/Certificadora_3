@@ -198,6 +198,44 @@ app.get('/eventos', async (req, res) => {
   }
 });
 
+app.put('/eventos/:id', async (req, res) => {
+  try {
+    const eventoAtualizado = await Evento.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(eventoAtualizado);
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro ao atualizar evento' });
+  }
+});
+
+app.delete('/eventos/:id', async (req, res) => {
+  try {
+    await Evento.findByIdAndDelete(req.params.id);
+    res.status(200).json({ mensagem: 'Evento deletado' });
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro ao deletar evento' });
+  }
+});
+
+app.post('/eventos/:id/inscrever', async (req, res) => {
+  try {
+    const evento = await Evento.findById(req.params.id);
+    const { usuarioId } = req.body;
+
+    if (!usuarioId) return res.status(400).json({ erro: 'ID do usuário necessário' });
+
+    if (evento.inscritos.includes(usuarioId)) {
+      evento.inscritos = evento.inscritos.filter(id => id !== usuarioId);
+    } else {
+      evento.inscritos.push(usuarioId);
+    }
+
+    await evento.save();
+    res.status(200).json({ evento });
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro ao processar inscrição' });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
