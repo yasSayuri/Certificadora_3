@@ -1,7 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 function GraficoEventos() {
-  // Dados simulados baseados nas atividades do Meninas Digitais
   const dados = [
     { nome: 'Python', inscritos: 15, vagas: 20 },
     { nome: 'Arduino', inscritos: 8, vagas: 10 },
@@ -14,8 +13,8 @@ function GraficoEventos() {
       background: 'white', 
       padding: '25px', 
       borderRadius: '15px', 
-      width: '90%', 
-      maxWidth: '1000px', 
+      width: '100%', 
+      boxSizing: 'border-box',
       marginBottom: '25px', 
       boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
       display: 'flex',
@@ -27,7 +26,7 @@ function GraficoEventos() {
       </h2>
       
       <div style={{ width: '100%', height: 300 }}>
-        <ResponsiveContainer>
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart data={dados} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis dataKey="nome" tick={{ fill: '#333' }} />
