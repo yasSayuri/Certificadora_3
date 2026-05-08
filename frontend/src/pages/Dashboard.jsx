@@ -57,7 +57,6 @@ function Dashboard() {
         </div>
       )}
 
-      {/* COMPONENTE CHAMADO AQUI */}
       <Sidebar paginaAtiva="dashboard" />
 
       <main className="dashboard_main">
