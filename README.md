@@ -1,7 +1,7 @@
 # 👩‍💻 Sistema de Agendamentos e Controle de Palestras
 
 **🔗 Repositório Oficial:** https://github.com/yasSayuri/Certificadora_3
-**▶️ Vídeo de Instalação e Execução:** [LINK DO YOUTUBE AQUI DEPOIS]
+**▶️ Vídeo de Instalação e Execução:** https://drive.google.com/file/d/1QAS60eXoxNVeUrmizwsQNLOeaZ3FiRpo/view?usp=sharing
 
 ---
 
@@ -18,9 +18,13 @@ Alunos que participaram ativamente do desenvolvimento do sistema até a presente
 O sistema proposto é uma plataforma digital voltada ao gerenciamento e organização das atividades do projeto de extensão Meninas Digitais UTFPR-CP. O objetivo central é gerenciar o agendamento e controle de palestras, oficinas, rodas de conversa e demais eventos realizados pelo projeto, reduzindo o uso de processos manuais e melhorando a eficiência na organização das atividades.
 
 ## ✨ Funcionalidades Desenvolvidas (Entrega Parcial 1)
-ainda nao temos
-
----
+Nesta primeira entrega, a base da arquitetura e as principais interfaces do sistema já foram consolidadas e integradas ao banco de dados:
+- Sistema de Autenticação: Telas de Home, Login e Cadastro operacionais, com proteção de senhas no banco via criptografia bcrypt.
+- Painel de Controle (Dashboard): Tela central com menu lateral (Sidebar) componente, layout moderno em Glassmorphism, saudação dinâmica ao usuário logado e Gráfico de Inscrições plotado dinamicamente com a biblioteca recharts.
+- Gerenciamento de Perfil: O usuário pode visualizar seus dados, editá-los, alterar sua senha ou excluir sua conta (CRUD de Usuários) através de modais interativos.
+- Gerenciamento de Eventos: Tela de "Lista de Eventos" contendo o CRUD completo (Criar, Editar e Excluir) de oficinas e palestras, além de permitir que o usuário se inscreva/cancele inscrição.
+- Calendário Interativo: Calendário com filtros ("Meus Eventos" e "Outros Eventos"), navegação por meses, marcação do dia atual e visualização de eventos cadastrados.
+- Auto-população de Dados: O sistema automaticamente cadastra uma lista de eventos estáticos no MongoDB na primeira inicialização para facilitar os testes.
 
 ## 🛠️ Ferramentas e Bibliotecas Utilizadas
 
@@ -30,16 +34,19 @@ ainda nao temos
 * **[Git](https://git-scm.com/):** (v2.44+) - Sistema de controle de versão distribuído[cite: 2].
 
 ### 2. Criação e Hospedagem da Base de Dados
-* **[MongoDB Community Server](https://www.mongodb.com/try/download/community):** (v7.0+) - Banco de dados não relacional rodando em ambiente local[cite: 2].
+* **[MongoDB Community Server](https://www.mongodb.com/try/download/community):** (v7.0+) - Banco de dados não relacional rodando em ambiente local.
 * **[MongoDB Compass](https://www.mongodb.com/products/tools/compass):** (v1.42+) - Interface gráfica para visualização e gerenciamento das tabelas do banco.
 
 ### 3. Bibliotecas Complementares
 * **Frontend:**
-  * **[React](https://react.dev/):** (v18.x) Biblioteca JavaScript para construção da interface do usuário[cite: 2] (Inicializado via Vite).
+  * **[React](https://react.dev/):** (v18.x) Biblioteca JavaScript para construção da interface do usuário (Inicializado via Vite).
+  * **React Router Dom: Gerenciamento de rotas e navegação sem recarregar a página.
+  * **Recharts: Biblioteca para a plotagem dos gráficos de análise no Dashboard.
 * **Backend:**
   * **[Express](https://expressjs.com/):** (v4.x) Framework para Node.js utilizado para criação da API e rotas[cite: 2].
   * **[Mongoose](https://mongoosejs.com/):** (v8.x) Biblioteca para modelagem de objetos e conexão com o MongoDB.
   * **Cors / Dotenv:** Middlewares para permitir requisições de portas diferentes e proteger variáveis de ambiente.
+  * **Bcrypt: Utilizada para garantir a segurança através da criptografia de senhas.
 
 ---
 
