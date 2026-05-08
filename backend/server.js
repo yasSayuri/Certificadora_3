@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 });
 
 const Usuario = require('./models/Usuario');
+const Evento = require('./models/Evento');
 
 app.post('/usuarios', async (req, res) => {
   try {
@@ -166,6 +167,34 @@ app.delete('/usuarios/:id', async (req, res) => {
     res.status(200).json({ mensagem: 'Conta deletada com sucesso!' });
   } catch (erro) {
     res.status(500).json({ mensagem: 'Erro interno do servidor.', detalhes: erro.message });
+  }
+});
+
+app.post('/eventos', async (req, res) => {
+  try {
+    const { nome, data, horarioInicio, horarioTermino, local, vagas, tipo } = req.body;
+
+    if (!nome || !data || !horarioInicio || !horarioTermino || !local || !vagas || !tipo) {
+      return res.status(400).json({ erro: 'Todos os campos são obrigatórios.' });
+    }
+
+    const novoEvento = new Evento({
+      nome, data, horarioInicio, horarioTermino, local, vagas, tipo
+    });
+
+    const eventoSalvo = await novoEvento.save();
+    res.status(201).json(eventoSalvo);
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro interno do servidor.', detalhes: erro.message });
+  }
+});
+
+app.get('/eventos', async (req, res) => {
+  try {
+    const eventos = await Evento.find();
+    res.status(200).json(eventos);
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro interno do servidor.', detalhes: erro.message });
   }
 });
 

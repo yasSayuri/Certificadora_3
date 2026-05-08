@@ -1,23 +1,68 @@
+.header_eventos {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header_acoes {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.Input_Pesquisa {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    outline-color: #6a1b9a;
+    width: 250px;
+}
+
+.Botao_Criar {
+    padding: 10px 20px;
+    background: #ff8f00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.Botao_Criar:hover {
+    background: #e67e00;
+}
+
 .Container_Cartoes {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
-    padding: 20px;
     width: 100%;
-    margin-top: 20px;
+    overflow-y: auto;
+    padding-bottom: 20px;
 }
 
 .Card_Evento {
     background: white;
     padding: 25px;
     border-radius: 15px;
-    width: 280px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    width: calc(33.333% - 14px);
+    min-width: 260px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.Card_Evento:hover {
+    transform: translateY(-4px);
 }
 
 .Badge_Tipo {
@@ -33,29 +78,74 @@
 
 .Card_Evento h3 {
     margin: 0;
-    color: #333;
-    font-size: 1.3rem;
+    color: #6a1b9a;
+    font-size: 1.2rem;
+    line-height: 1.3;
 }
 
 .Card_Evento p {
     margin: 0;
     font-size: 14px;
-    color: #666;
+    color: #555;
 }
 
 .Botao_Increver {
     width: 100%;
-    margin-top: 15px;
-    padding: 12px;
-    background: #6a1b9a;
-    color: white;
-    border: none;
+    margin-top: auto;
+    padding: 10px;
+    background: transparent;
+    color: #6a1b9a;
+    border: 2px solid #6a1b9a;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
 }
 
 .Botao_Increver:hover {
-    background: #4a148c;
+    background: #6a1b9a;
+    color: white;
+}
+
+.modal_evento {
+    max-width: 500px;
+}
+
+.form_evento {
+    margin-top: 15px;
+}
+
+.form_linha {
+    display: flex;
+    gap: 15px;
+}
+
+.form_linha input {
+    flex: 1;
+}
+
+.toggle_container {
+    display: flex;
+    background: #f1f1f1;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.toggle_btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle_btn.active {
+    background: #6a1b9a;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }

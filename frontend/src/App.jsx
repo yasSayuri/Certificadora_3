@@ -6,6 +6,8 @@ import Cadastro from './pages/Cadastro';
 import Perfil from './pages/Perfil';    
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import ListaEventos from './pages/ListaEventos';
+import GraficoEventos from './pages/GraficoEventos';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/listaEventos" element={<ListaEventos />} />
+        <Route path="/graficoEventos" element={<GraficoEventos />} />
       </Routes>
     </Router>
   );
