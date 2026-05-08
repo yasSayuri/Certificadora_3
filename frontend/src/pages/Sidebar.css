@@ -1,0 +1,103 @@
+.sidebar {
+    width: 260px;
+    height: 100%; 
+    background-color: #ffffff;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    border-radius: 20px; 
+    box-sizing: border-box;
+}
+
+.sidebar_logo {
+    color: #6a1b9a;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-size: 28px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.sidebar_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
+.nav_item {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    text-decoration: none;
+    color: #888; 
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav_item:hover {
+    background-color: rgba(106, 27, 154, 0.05);
+    color: #6a1b9a;
+}
+
+.nav_item.active {
+    background-color: #6a1b9a;
+    color: white;
+}
+
+.nav_logout {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    text-decoration: none;
+    color: #ff8f00;
+    padding: 12px 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav_logout:hover {
+    color: #e67e00;
+}
+
+/* O popup precisava ser copiado para a Sidebar usar */
+.popup_mensagem {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 9999;
+    animation: popupEntrar 0.4s ease, popupSair 0.4s ease 2.6s forwards;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.popup_erro {
+    background-color: #fff;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+}
+
+.popup_sucesso {
+    background-color: #fff;
+    color: #2e7d32;
+    border: 2px solid #2e7d32;
+}
+
+@keyframes popupEntrar {
+    from { opacity: 0; top: -20px; }
+    to { opacity: 1; top: 30px; }
+}
+
+@keyframes popupSair {
+    from { opacity: 1; top: 30px; }
+    to { opacity: 0; top: -20px; }
+}
