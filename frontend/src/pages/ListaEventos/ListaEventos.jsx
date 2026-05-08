@@ -3,20 +3,10 @@ import Sidebar from '../Componentes/Sidebar';
 import './ListaEventos.css';
 
 function ListaEventos() {
-  const eventosEstaticos = [
-    { _id: '1', nome: "Oficina de Python", data: "15/05/2026", horarioInicio: "14:00", horarioTermino: "16:00", local: "Laboratório 1", vagas: 10, tipo: "Oficina", inscritos: [] },
-    { _id: '2', nome: "Palestra: Mulheres na Tecnologia", data: "20/05/2026", horarioInicio: "19:00", horarioTermino: "21:00", local: "Auditório Principal", vagas: 50, tipo: "Palestra", inscritos: [] },
-    { _id: '3', nome: "Introdução ao Arduino", data: "22/05/2026", horarioInicio: "08:00", horarioTermino: "12:00", local: "Laboratório Maker", vagas: 5, tipo: "Oficina", inscritos: [] },
-    { _id: '4', nome: "Workshop de React", data: "05/06/2026", horarioInicio: "09:00", horarioTermino: "12:00", local: "Laboratório 3", vagas: 25, tipo: "Oficina", inscritos: [] },
-    { _id: '5', nome: "Palestra: Inteligência Artificial", data: "30/05/2026", horarioInicio: "19:30", horarioTermino: "21:30", local: "Auditório Principal", vagas: 100, tipo: "Palestra", inscritos: [] },
-    { _id: '6', nome: "UX/UI Design para Iniciantes", data: "25/05/2026", horarioInicio: "14:00", horarioTermino: "17:00", local: "Sala 204", vagas: 20, tipo: "Oficina", inscritos: [] }
-  ];
-
   const [eventosBD, setEventosBD] = useState([]);
   const [busca, setBusca] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   
-  // Novos estados para o modal de deletar
   const [modalDeletarEventoOpen, setModalDeletarEventoOpen] = useState(false);
   const [eventoParaDeletar, setEventoParaDeletar] = useState(null);
 
@@ -157,8 +147,7 @@ function ListaEventos() {
     }
   };
 
-  const todosEventos = [...eventosEstaticos, ...eventosBD];
-  const eventosFiltrados = todosEventos.filter(evento => 
+  const eventosFiltrados = eventosBD.filter(evento => 
     evento.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
@@ -227,7 +216,6 @@ function ListaEventos() {
         </div>
       </main>
 
-      {/* Modal de Criar/Editar Evento */}
       {modalOpen && (
         <div className="modal_overlay">
           <div className="modal_box modal_evento">
@@ -257,7 +245,6 @@ function ListaEventos() {
         </div>
       )}
 
-      {/* Modal de Confirmar Exclusão de Evento */}
       {modalDeletarEventoOpen && (
         <div className="modal_overlay">
           <div className="modal_box">

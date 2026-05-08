@@ -4,14 +4,50 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 
+const Usuario = require('./models/Usuario');
+const Evento = require('./models/Evento');
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+const popularBanco = async () => {
+  try {
+    const countUsuarios = await Usuario.countDocuments();
+    if (countUsuarios === 0) {
+      const senhaCriptografada = await bcrypt.hash('admin123', 10);
+      const admin = new Usuario({
+        nome: 'Admin',
+        email: 'admin@utfpr.edu.br',
+        senha: senhaCriptografada
+      });
+      await admin.save();
+      console.log('Admin padrao criado com sucesso!');
+    }
+
+    const countEventos = await Evento.countDocuments();
+    if (countEventos === 0) {
+      const eventosEstaticos = [
+        { nome: "Oficina de Python", data: "15/05/2026", horarioInicio: "14:00", horarioTermino: "16:00", local: "Laboratório 1", vagas: 10, tipo: "Oficina", inscritos: [] },
+        { nome: "Palestra: Mulheres na Tecnologia", data: "20/05/2026", horarioInicio: "19:00", horarioTermino: "21:00", local: "Auditório Principal", vagas: 50, tipo: "Palestra", inscritos: [] },
+        { nome: "Introdução ao Arduino", data: "22/05/2026", horarioInicio: "08:00", horarioTermino: "12:00", local: "Laboratório Maker", vagas: 5, tipo: "Oficina", inscritos: [] },
+        { nome: "Workshop de React", data: "05/06/2026", horarioInicio: "09:00", horarioTermino: "12:00", local: "Laboratório 3", vagas: 25, tipo: "Oficina", inscritos: [] },
+        { nome: "Palestra: Inteligência Artificial", data: "30/05/2026", horarioInicio: "19:30", horarioTermino: "21:30", local: "Auditório Principal", vagas: 100, tipo: "Palestra", inscritos: [] },
+        { nome: "UX/UI Design para Iniciantes", data: "25/05/2026", horarioInicio: "14:00", horarioTermino: "17:00", local: "Sala 204", vagas: 20, tipo: "Oficina", inscritos: [] }
+      ];
+      await Evento.insertMany(eventosEstaticos);
+      console.log('Eventos estaticos inseridos no banco com sucesso!');
+    }
+  } catch (erro) {
+    console.error('Erro ao popular o banco de dados:', erro);
+  }
+};
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Conectado ao MongoDB com sucesso!');
+    popularBanco();
   })
   .catch((erro) => {
     console.error('Erro ao conectar no MongoDB:', erro);
@@ -20,9 +56,6 @@ mongoose.connect(process.env.MONGO_URI)
 app.get('/', (req, res) => {
   res.send('API do Meninas Digitais UTFPR-CP está rodando!');
 });
-
-const Usuario = require('./models/Usuario');
-const Evento = require('./models/Evento');
 
 app.post('/usuarios', async (req, res) => {
   try {
