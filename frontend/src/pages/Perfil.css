@@ -167,3 +167,164 @@
 .Botao_Editar:hover {
     background: #e67e00;
 }
+
+.Botao_Senha {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    color: #ff8f00;
+    border: 2px solid #ff8f00;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Botao_Senha:hover {
+    background: #ff8f00;
+    color: white;
+}
+
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal_box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.modal_box h3 {
+    color: #6a1b9a;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+.modal_form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal_form input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    outline-color: #6a1b9a;
+}
+
+.modal_botoes {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.btn_cancelar {
+    flex: 1;
+    padding: 12px;
+    background: #f1f1f1;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn_cancelar:hover {
+    background: #e1e1e1;
+}
+
+.btn_salvar {
+    flex: 1;
+    padding: 12px;
+    background: #6a1b9a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn_salvar:hover {
+    background: #4a136c;
+}
+
+.popup_mensagem {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 9999;
+    animation: popupEntrar 0.4s ease, popupSair 0.4s ease 2.6s forwards;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.popup_erro {
+    background-color: #fff;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+}
+
+.popup_sucesso {
+    background-color: #fff;
+    color: #2e7d32;
+    border: 2px solid #2e7d32;
+}
+
+@keyframes popupEntrar {
+    from { opacity: 0; top: -20px; }
+    to { opacity: 1; top: 30px; }
+}
+
+@keyframes popupSair {
+    from { opacity: 1; top: 30px; }
+    to { opacity: 0; top: -20px; }
+}
+
+.Botao_Deletar {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Botao_Deletar:hover {
+    background: #d32f2f;
+    color: white;
+}

@@ -19,13 +19,11 @@ function Login() {
   const realizarLogin = async (e) => {
     e.preventDefault();
 
-    // Validação de campos vazios
     if (!email || !senha) {
       mostrarPopup('Preencha todos os campos.');
       return;
     }
 
-    // Validação de formato de e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       mostrarPopup('E-mail inválido.');
@@ -46,6 +44,10 @@ function Login() {
         return;
       }
 
+      localStorage.setItem('nomeUsuario', dados.usuario.nome);
+      localStorage.setItem('emailUsuario', dados.usuario.email); 
+      localStorage.setItem('idUsuario', dados.usuario.id);
+
       mostrarPopup('Login realizado com sucesso!', 'sucesso');
       setTimeout(() => {
         navigate('/dashboard');
@@ -58,7 +60,6 @@ function Login() {
   return (
     <div className="login_container">
 
-      {/* Popup de mensagem */}
       {popup.visivel && (
         <div className={`popup_mensagem popup_${popup.tipo}`}>
           {popup.tipo === 'erro' ? '⚠️' : '✅'} {popup.mensagem}

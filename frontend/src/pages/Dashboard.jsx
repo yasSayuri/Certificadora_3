@@ -5,13 +5,28 @@ import { useState, useEffect } from 'react';
 
 function Dashboard() {
   const [primeiroNome, setPrimeiroNome] = useState('User');
+  const [saudacao, setSaudacao] = useState('Bem-vindo(a)');
 
   useEffect(() => {
-    const buscarUsuario = async () => {
+    const buscarUsuario = () => {
       try {
-        const dados = { nome: "User" }; 
-        const nomeFormatado = dados.nome.split(' ')[0]; 
-        setPrimeiroNome(nomeFormatado);
+        const nomeCompleto = localStorage.getItem('nomeUsuario') || 'User';
+        const primeiro = nomeCompleto.split(' ')[0];
+        setPrimeiroNome(primeiro);
+
+        const nomeLower = primeiro.toLowerCase();
+        const excecoesFemininas = ['yasmin', 'beatriz', 'alice', 'aline', 'raquel', 'ester', 'simone', 'suelen', 'karen', 'ellen', 'laís', 'íris', 'sayuri'];
+        const excecoesMasculinas = ['luca', 'jonas', 'matias', 'messias', 'isaías', 'lucas', 'nicolas'];
+
+        let artigo = 'Bem-vindo';
+
+        if (excecoesMasculinas.includes(nomeLower)) {
+          artigo = 'Bem-vindo';
+        } else if (nomeLower.endsWith('a') || excecoesFemininas.includes(nomeLower) || nomeLower.endsWith('y') || nomeLower.endsWith('i') || nomeLower.endsWith('e')) {
+          artigo = 'Bem-vinda';
+        }
+
+        setSaudacao(artigo);
       } catch (erro) {
         console.error(erro);
       }
@@ -43,7 +58,7 @@ function Dashboard() {
           </Link>
         </nav>
 
-        <Link to="/" className="nav_logout">
+        <Link to="/" className="nav_logout" onClick={() => localStorage.removeItem('nomeUsuario')}>
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
           Sair
         </Link>
@@ -52,7 +67,7 @@ function Dashboard() {
       <main className="dashboard_main">
         
         <header className="dashboard_header">
-          <h1 className="greeting">Bem-vinda de volta, {primeiroNome}!</h1>
+          <h1 className="greeting">{saudacao} de volta, {primeiroNome}!</h1>
           <p id="Titulo">Painel de Controle</p>
         </header>
 

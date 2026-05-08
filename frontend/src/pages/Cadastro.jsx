@@ -20,20 +20,17 @@ function Cadastro() {
   const realizarCadastro = async (e) => {
     e.preventDefault();
 
-    // Validação de campos vazios
     if (!nome || !email || !senha) {
       mostrarPopup('Preencha todos os campos.');
       return;
     }
 
-    // Validação de formato de e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       mostrarPopup('E-mail inválido.');
       return;
     }
 
-    // Validação de senha (mínimo 6 caracteres)
     if (senha.length < 6) {
       mostrarPopup('A senha deve conter no mínimo 6 caracteres.');
       return;
@@ -65,7 +62,6 @@ function Cadastro() {
   return (
     <div className="cadastro_container">
 
-      {/* Popup de mensagem */}
       {popup.visivel && (
         <div className={`popup_mensagem popup_${popup.tipo}`}>
           {popup.tipo === 'erro' ? '⚠️' : '✅'} {popup.mensagem}
