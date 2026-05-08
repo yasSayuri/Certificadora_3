@@ -5,17 +5,66 @@ import { Link, useNavigate } from 'react-router-dom';
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  
+  const [popup, setPopup] = useState({ visivel: false, mensagem: '', tipo: '' });
+
   const navigate = useNavigate();
 
-  const realizarLogin = (e) => {
+  const mostrarPopup = (mensagem, tipo = 'erro') => {
+    setPopup({ visivel: true, mensagem, tipo });
+    setTimeout(() => {
+      setPopup({ visivel: false, mensagem: '', tipo: '' });
+    }, 3000);
+  };
+
+  const realizarLogin = async (e) => {
     e.preventDefault();
-    
-    navigate('/dashboard');
+
+    // Validação de campos vazios
+    if (!email || !senha) {
+      mostrarPopup('Preencha todos os campos.');
+      return;
+    }
+
+    // Validação de formato de e-mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      mostrarPopup('E-mail inválido.');
+      return;
+    }
+
+    try {
+      const resposta = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok) {
+        mostrarPopup(dados.erro || 'E-mail ou senha inválidos.');
+        return;
+      }
+
+      mostrarPopup('Login realizado com sucesso!', 'sucesso');
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
+    } catch (erro) {
+      mostrarPopup('Erro ao conectar com o servidor.');
+    }
   };
 
   return (
     <div className="login_container">
+
+      {/* Popup de mensagem */}
+      {popup.visivel && (
+        <div className={`popup_mensagem popup_${popup.tipo}`}>
+          {popup.tipo === 'erro' ? '⚠️' : '✅'} {popup.mensagem}
+        </div>
+      )}
+
       <div id="Caixa_Login">
         
         <div className="header_login">

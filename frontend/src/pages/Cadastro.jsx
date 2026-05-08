@@ -6,17 +6,72 @@ function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  
+  const [popup, setPopup] = useState({ visivel: false, mensagem: '', tipo: '' });
+
   const navigate = useNavigate();
 
-  const realizarCadastro = (e) => {
+  const mostrarPopup = (mensagem, tipo = 'erro') => {
+    setPopup({ visivel: true, mensagem, tipo });
+    setTimeout(() => {
+      setPopup({ visivel: false, mensagem: '', tipo: '' });
+    }, 3000);
+  };
+
+  const realizarCadastro = async (e) => {
     e.preventDefault();
 
-    navigate('/dashboard');
+    // Validação de campos vazios
+    if (!nome || !email || !senha) {
+      mostrarPopup('Preencha todos os campos.');
+      return;
+    }
+
+    // Validação de formato de e-mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      mostrarPopup('E-mail inválido.');
+      return;
+    }
+
+    // Validação de senha (mínimo 6 caracteres)
+    if (senha.length < 6) {
+      mostrarPopup('A senha deve conter no mínimo 6 caracteres.');
+      return;
+    }
+
+    try {
+      const resposta = await fetch('http://localhost:3000/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, senha }),
+      });
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok) {
+        mostrarPopup(dados.erro || 'Erro ao cadastrar.');
+        return;
+      }
+
+      mostrarPopup('Cadastro realizado com sucesso!', 'sucesso');
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
+    } catch (erro) {
+      mostrarPopup('Erro ao conectar com o servidor.');
+    }
   };
 
   return (
     <div className="cadastro_container">
+
+      {/* Popup de mensagem */}
+      {popup.visivel && (
+        <div className={`popup_mensagem popup_${popup.tipo}`}>
+          {popup.tipo === 'erro' ? '⚠️' : '✅'} {popup.mensagem}
+        </div>
+      )}
+
       <div id="Caixa_Cadastro">
         
         <div className="header_cadastro">
@@ -42,14 +97,12 @@ function Cadastro() {
             placeholder="E-mail" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
-            /* required removido */
           />
           <input 
             type="password" 
             placeholder="Senha" 
             value={senha} 
             onChange={(e) => setSenha(e.target.value)} 
-            /* required removido */
           />
           <button type="submit" className="Botao_Cadastrar">
             Cadastrar
