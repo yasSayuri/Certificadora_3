@@ -39,6 +39,11 @@ function Sidebar({ paginaAtiva }) {
             Lista de Eventos
           </Link>
 
+          <Link to="/Calendario" className={`nav_item ${paginaAtiva === 'calendario' ? 'active' : ''}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm80 160h80v80h-80v-80Zm160 0h80v80h-80v-80Zm160 0h80v80h-80v-80Zm-320 160h80v80h-80v-80Zm160 0h80v80h-80v-80Zm160 0h80v80h-80v-80Z"/></svg>
+            Calendário
+          </Link>
+
           <Link to="/certificados" className={`nav_item ${paginaAtiva === 'certificados' ? 'active' : ''}`}>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
             Certificados

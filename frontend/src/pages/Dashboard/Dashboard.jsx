@@ -2,21 +2,10 @@ import './Dashboard.css';
 import GraficoEventos from '../Componentes/GraficoEventos';
 import Sidebar from '../Componentes/Sidebar';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [primeiroNome, setPrimeiroNome] = useState('User');
   const [saudacao, setSaudacao] = useState('Bem-vindo(a)');
-  const [popup, setPopup] = useState({ visivel: false, mensagem: '', tipo: '' });
-  
-  const navigate = useNavigate();
-
-  const mostrarPopup = (mensagem, tipo = 'erro') => {
-    setPopup({ visivel: true, mensagem, tipo });
-    setTimeout(() => {
-      setPopup({ visivel: false, mensagem: '', tipo: '' });
-    }, 3000);
-  };
 
   useEffect(() => {
     const buscarUsuario = () => {
@@ -39,49 +28,27 @@ function Dashboard() {
 
         setSaudacao(artigo);
       } catch (erro) {
-        console.error(erro);
+        setPrimeiroNome('User');
+        setSaudacao('Bem-vindo(a)');
       }
     };
+
     buscarUsuario();
   }, []);
 
-  const acoes = [
-    { id: 1, titulo: "Meus Agendamentos", desc: "Veja suas palestras marcadas", rota: "/calendario" },
-    { id: 2, titulo: "Nova Inscrição", desc: "Inscreva-se em novos eventos", rota: "/ListaEventos" },
-    { id: 3, titulo: "Certificados", desc: "Baixe seus comprovantes", rota: "/certificados" }
-  ];
-
   return (
     <div className="dashboard_layout">
-      
-      {popup.visivel && (
-        <div className={`popup_mensagem popup_${popup.tipo}`}>
-          {popup.tipo === 'erro' ? '⚠️' : '✅'} {popup.mensagem}
-        </div>
-      )}
-
       <Sidebar paginaAtiva="dashboard" />
 
-      <main className="dashboard_main">
-        <header className="dashboard_header">
+      <main className="dashboard_main dashboard_graficos_main">
+        <header className="dashboard_header dashboard_graficos_header">
           <h1 className="greeting">{saudacao} de volta, {primeiroNome}!</h1>
-          <p id="Titulo">Painel de Controle</p>
+          <p id="Titulo">Painel de acompanhamento dos eventos</p>
         </header>
 
-        <div className="conteudo_amigo">
+        <div className="dashboard_graficos_content">
           <GraficoEventos />
-        
-          <div className="Grid_Dashboard">
-            {acoes.map(acao => (
-              <div key={acao.id} className="Card_Dash">
-                <h3>{acao.titulo}</h3>
-                <p>{acao.desc}</p>
-                <button className="Botao_Dash" onClick={() => navigate(acao.rota)}>Acessar</button>
-              </div>
-            ))}
-          </div>
         </div>
-
       </main>
     </div>
   );

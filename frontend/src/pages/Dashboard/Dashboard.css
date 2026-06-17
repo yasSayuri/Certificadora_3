@@ -6,35 +6,44 @@
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     box-sizing: border-box;
-    padding: 20px; 
-    gap: 30px; 
-    overflow: hidden; 
+    padding: 20px;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.dashboard_sem_scroll {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .dashboard_main {
-    flex: 1; 
+    flex: 1;
     display: flex;
     flex-direction: column;
     height: 100%;
     box-sizing: border-box;
     width: 100%;
+    min-width: 0;
+    min-height: 0;
 }
 
 .dashboard_header {
     width: 100%;
     margin-bottom: 15px;
+    flex-shrink: 0;
 }
 
 .greeting {
-    color: #6a1b9a; 
+    color: #6a1b9a;
     font-weight: bold;
     margin: 0;
-    font-size: 26px; 
+    font-size: 26px;
 }
 
 #Titulo {
-    color: #505050; 
-    font-size: 16px; 
+    color: #505050;
+    font-size: 16px;
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -45,8 +54,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly; 
-    min-height: 0; 
+    justify-content: space-evenly;
+    min-height: 0;
     width: 100%;
 }
 
@@ -58,57 +67,6 @@
 
 .grafico_wrapper > * {
     width: 100% !important;
-}
-
-.Grid_Dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    width: 100%;
-}
-
-.Card_Dash {
-    background: white;
-    padding: 20px 15px; 
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
-    transition: transform 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.Card_Dash:hover {
-    transform: translateY(-4px); 
-}
-
-.Card_Dash h3 {
-    color: #6a1b9a;
-    margin-bottom: 5px;
-    font-size: 18px;
-}
-
-.Card_Dash p {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #666;
-}
-
-.Botao_Dash {
-    margin-top: auto;
-    padding: 8px 20px;
-    background: #ff8f00;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.Botao_Dash:hover {
-    background: #e67e00;
 }
 
 .popup_mensagem {
@@ -139,11 +97,77 @@
 }
 
 @keyframes popupEntrar {
-    from { opacity: 0; top: -20px; }
-    to { opacity: 1; top: 30px; }
+    from {
+        opacity: 0;
+        top: -20px;
+    }
+
+    to {
+        opacity: 1;
+        top: 30px;
+    }
 }
 
 @keyframes popupSair {
-    from { opacity: 1; top: 30px; }
-    to { opacity: 0; top: -20px; }
+    from {
+        opacity: 1;
+        top: 30px;
+    }
+
+    to {
+        opacity: 0;
+        top: -20px;
+    }
+}
+
+.dashboard_graficos_main {
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 0;
+    padding: 0;
+}
+
+.dashboard_graficos_header {
+    flex-shrink: 0;
+    padding: 0 0 8px 0;
+    margin: 0;
+}
+
+.dashboard_graficos_header .greeting {
+    font-size: 28px;
+    margin: 0 0 6px 0;
+    line-height: 1.1;
+}
+
+.dashboard_graficos_header #Titulo {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.1;
+}
+
+.dashboard_graficos_content {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .dashboard_layout {
+        padding: 12px;
+        gap: 15px;
+    }
+
+    .dashboard_graficos_header .greeting {
+        font-size: 22px;
+    }
+
+    .dashboard_graficos_header #Titulo {
+        font-size: 14px;
+    }
 }
