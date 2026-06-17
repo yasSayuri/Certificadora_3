@@ -17,14 +17,20 @@ Alunos que participaram ativamente do desenvolvimento do sistema até a presente
 ## 🎯 Objetivo do Sistema
 O sistema proposto é uma plataforma digital voltada ao gerenciamento e organização das atividades do projeto de extensão Meninas Digitais UTFPR-CP. O objetivo central é gerenciar o agendamento e controle de palestras, oficinas, rodas de conversa e demais eventos realizados pelo projeto, reduzindo o uso de processos manuais e melhorando a eficiência na organização das atividades.
 
-## ✨ Funcionalidades Desenvolvidas (Entrega Parcial 1)
-Nesta primeira entrega, a base da arquitetura e as principais interfaces do sistema já foram consolidadas e integradas ao banco de dados:
-- Sistema de Autenticação: Telas de Home, Login e Cadastro operacionais, com proteção de senhas no banco via criptografia bcrypt.
-- Painel de Controle (Dashboard): Tela central com menu lateral (Sidebar) componente, layout moderno em Glassmorphism, saudação dinâmica ao usuário logado e Gráfico de Inscrições plotado dinamicamente com a biblioteca recharts.
-- Gerenciamento de Perfil: O usuário pode visualizar seus dados, editá-los, alterar sua senha ou excluir sua conta (CRUD de Usuários) através de modais interativos.
-- Gerenciamento de Eventos: Tela de "Lista de Eventos" contendo o CRUD completo (Criar, Editar e Excluir) de oficinas e palestras, além de permitir que o usuário se inscreva/cancele inscrição.
-- Calendário Interativo: Calendário com filtros ("Meus Eventos" e "Outros Eventos"), navegação por meses, marcação do dia atual e visualização de eventos cadastrados.
-- Auto-população de Dados: O sistema automaticamente cadastra uma lista de eventos estáticos no MongoDB na primeira inicialização para facilitar os testes.
+## ✨ Funcionalidades Desenvolvidas
+
+- **Sistema de Autenticação:** telas de Home, Login e Cadastro operacionais, com proteção de senhas no banco via criptografia bcrypt.
+- **Cadastro de Usuários:** cadastro com nome completo, e-mail e senha, permitindo que o nome cadastrado seja utilizado na saudação do dashboard e na geração dos certificados simulados.
+- **Painel de Controle (Dashboard):** tela central com menu lateral (Sidebar), layout moderno, saudação dinâmica ao usuário logado e área composta apenas por gráficos, sem botões de ação.
+- **Gráficos do Dashboard:** indicadores visuais de inscrições por evento, eventos realizados por mês, impacto do projeto na comunidade e participação das Meninas Digitais nos eventos, utilizando a biblioteca Recharts.
+- **Gerenciamento de Perfil:** o usuário pode visualizar seus dados, editá-los, alterar sua senha ou excluir sua conta (CRUD de Usuários) por meio de modais interativos.
+- **Gerenciamento de Eventos:** tela de Lista de Eventos contendo o CRUD completo (Criar, Editar e Excluir) de oficinas e palestras, além de permitir que o usuário se inscreva ou cancele inscrição.
+- **Calendário Interativo:** calendário com filtros (Meus Eventos e Outros Eventos), navegação por meses, marcação do dia atual e visualização de eventos cadastrados.
+- **Certificados Simulados:** página de certificados integrada às inscrições do usuário, exibindo eventos concluídos e eventos futuros.
+- **Geração de Certificado Fake:** emissão local de certificado em HTML para eventos concluídos, contendo nome completo do participante, nome do evento, data, carga horária calculada automaticamente e assinatura fictícia da coordenação.
+- **Carga Horária Automática:** cálculo da carga horária com base na diferença entre o horário de início e o horário de término do evento.
+- **Aviso de Validade do Certificado:** o certificado gerado informa que se trata de uma simulação acadêmica, sem validade oficial, por ser uma aplicação local e sem validação institucional.
+- **Auto-população de Dados:** o sistema automaticamente cadastra uma lista de eventos estáticos no MongoDB na primeira inicialização para facilitar os testes.
 
 ## 🛠️ Ferramentas e Bibliotecas Utilizadas
 
