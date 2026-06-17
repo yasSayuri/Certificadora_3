@@ -120,3 +120,8 @@ Inicie o servidor de desenvolvimento web:
 npm run dev
 ```
 O terminal exibirá um link (geralmente http://localhost:5173). Segure a tecla CTRL e clique no link para abrir o sistema no navegador.
+
+Caso queira pular a etapa de cadastro aqui temos um usuario Default do sistema:
+
+E-mail: admin@utfpr.edu.br
+Senha: admin123
