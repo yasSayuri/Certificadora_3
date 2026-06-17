@@ -39,6 +39,11 @@ function Sidebar({ paginaAtiva }) {
             Lista de Eventos
           </Link>
 
+          <Link to="/certificados" className={`nav_item ${paginaAtiva === 'certificados' ? 'active' : ''}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
+            Certificados
+          </Link>
+
           <div className="nav_item" style={{ cursor: 'pointer' }} onClick={() => mostrarPopup('Ainda não implementado', 'erro')}>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-340q-58 0-99-42t-41-99q0-58 41-99t99-42q58 0 99 42t41 99q0 58-41 99t-99 42Zm-20 256L428-142q-20-5-38-14t-33-21l-55 23-45-78 47-36q-2-10-3-20.5t-1-21.5q0-11 1-21.5t3-20.5l-47-36 45-78 55 23q15-12 33-21t38-14l32-58h90l32 58q20 5 38 14t33 21l55-23 45 78-47 36q2 10 3 20.5t1 21.5q0 11-1 21.5t-3 20.5l47 36-45 78-55-23q-15 12-33 21t-38 14l-32 58h-90Z"/></svg>
             Configurações
