@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ListaEventos from './pages/ListaEventos/ListaEventos';
 import Calendario from './pages/Calendario/Calendario';
 import Certificados from './pages/Certificados/Certificados';
+import Configuracao from './pages/Configuracao/Configuracao';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/listaEventos" element={<ListaEventos />} />
         <Route path="/calendario" element={<Calendario />} />
         <Route path="/certificados" element={<Certificados />} />
+        <Route path="/configuracao" element={<Configuracao />} />
       </Routes>
     </Router>
   );

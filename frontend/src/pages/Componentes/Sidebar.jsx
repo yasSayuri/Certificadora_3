@@ -49,10 +49,10 @@ function Sidebar({ paginaAtiva }) {
             Certificados
           </Link>
 
-          <div className="nav_item" style={{ cursor: 'pointer' }} onClick={() => mostrarPopup('Ainda não implementado', 'erro')}>
+          <Link to="/configuracao" className={`nav_item ${paginaAtiva === 'configuracao' ? 'active' : ''}`}>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-340q-58 0-99-42t-41-99q0-58 41-99t99-42q58 0 99 42t41 99q0 58-41 99t-99 42Zm-20 256L428-142q-20-5-38-14t-33-21l-55 23-45-78 47-36q-2-10-3-20.5t-1-21.5q0-11 1-21.5t3-20.5l-47-36 45-78 55 23q15-12 33-21t38-14l32-58h90l32 58q20 5 38 14t33 21l55-23 45 78-47 36q2 10 3 20.5t1 21.5q0 11-1 21.5t-3 20.5l47 36-45 78-55-23q-15 12-33 21t-38 14l-32 58h-90Z"/></svg>
-            Configurações
-          </div>
+            Configuraçao
+          </Link>
         </nav>
 
         <Link to="/" className="nav_logout" onClick={() => localStorage.clear()}>
