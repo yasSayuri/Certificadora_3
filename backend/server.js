@@ -254,11 +254,18 @@ app.post('/eventos/:id/inscrever', async (req, res) => {
     const evento = await Evento.findById(req.params.id);
     const { usuarioId } = req.body;
 
+    if (!evento) return res.status(404).json({ erro: 'Evento não encontrado' });
     if (!usuarioId) return res.status(400).json({ erro: 'ID do usuário necessário' });
 
     if (evento.inscritos.includes(usuarioId)) {
+      // Cancelar inscrição (sempre permitido)
       evento.inscritos = evento.inscritos.filter(id => id !== usuarioId);
     } else {
+      // Verificar vagas antes de inscrever
+      const vagasRestantes = evento.vagas - evento.inscritos.length;
+      if (vagasRestantes <= 0) {
+        return res.status(400).json({ erro: 'Evento lotado! Não há vagas disponíveis.' });
+      }
       evento.inscritos.push(usuarioId);
     }
 

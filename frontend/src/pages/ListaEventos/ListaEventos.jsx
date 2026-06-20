@@ -147,7 +147,8 @@ function ListaEventos() {
         const taInscrito = data.evento.inscritos.includes(idUsuario);
         mostrarPopup(taInscrito ? 'Inscrição confirmada!' : 'Inscrição cancelada!', 'sucesso');
       } else {
-        mostrarPopup('Erro ao processar inscrição.');
+        const data = await resposta.json();
+        mostrarPopup(data.erro || 'Erro ao processar inscrição.');
       }
 } catch (error) {
   console.error(error); // Agora a variável está sendo usada
@@ -161,7 +162,8 @@ function ListaEventos() {
     
     const matchBusca = evento.nome.toLowerCase().includes(busca.toLowerCase());
     const matchTipo = filtroTipo === 'Todos' || evento.tipo === filtroTipo;
-    const matchVagas = filtroVagas ? evento.vagas > 0 : true;
+    const vagasRestantes = evento.vagas - (evento.inscritos ? evento.inscritos.length : 0);
+    const matchVagas = filtroVagas ? vagasRestantes > 0 : true;
     const matchInscrito = filtroInscrito ? isInscrito : true;
 
     return matchBusca && matchTipo && matchVagas && matchInscrito;
@@ -244,8 +246,10 @@ function ListaEventos() {
           ) : (
             eventosFiltrados.map(evento => {
               const isInscrito = evento.inscritos && evento.inscritos.includes(idUsuario);
+              const vagasRestantes = evento.vagas - (evento.inscritos ? evento.inscritos.length : 0);
+              const estaLotado = vagasRestantes <= 0 && !isInscrito;
               return (
-                <div key={evento._id} className="Card_Evento">
+                <div key={evento._id} className={`Card_Evento ${estaLotado ? 'card_lotado' : ''}`}>
                   <div className="Acoes_Card">
                     <button className="Btn_Icone edit" onClick={() => abrirModalEditar(evento)}>
                       <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
@@ -258,19 +262,21 @@ function ListaEventos() {
                   <div className="Header_Card_Info">
                     <div className="Badge_Tipo">{evento.tipo}</div>
                     {isInscrito && <div className="Badge_Inscrito">Você está inscrita neste</div>}
+                    {estaLotado && <div className="Badge_Lotado">Evento Lotado</div>}
                   </div>
                   
                   <h3>{evento.nome}</h3>
                   <p><strong>Data:</strong> {evento.data}</p>
                   <p><strong>Horário:</strong> {evento.horarioInicio} - {evento.horarioTermino}</p>
                   <p><strong>Local:</strong> {evento.local}</p>
-                  <p><strong>Vagas restantes:</strong> {evento.vagas}</p>
+                  <p><strong>Vagas restantes:</strong> {vagasRestantes} / {evento.vagas}</p>
                   
                   <button 
-                    className={`Botao_Increver ${isInscrito ? 'cancelar' : ''}`} 
+                    className={`Botao_Increver ${isInscrito ? 'cancelar' : ''} ${estaLotado ? 'lotado' : ''}`} 
                     onClick={() => inscreverEvento(evento._id)}
+                    disabled={estaLotado}
                   >
-                    {isInscrito ? 'Cancelar Inscrição' : 'Inscrever-se'}
+                    {estaLotado ? 'Evento Lotado' : isInscrito ? 'Cancelar Inscrição' : 'Inscrever-se'}
                   </button>
                 </div>
               );
