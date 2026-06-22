@@ -229,13 +229,18 @@
 }
 
 .Select_Filtro {
-    padding: 8px 12px;
+    padding: 8px 35px 8px 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
     outline-color: #6a1b9a;
     font-size: 14px;
-    background: white;
+    background-color: white;
     cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236a1b9a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 14px;
 }
 
 .Filtro_Grupo label {
@@ -280,4 +285,108 @@
 .Botao_Increver.lotado:hover {
     background: #f5f5f5;
     color: #999;
+}
+
+.Linha_Inscritos {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.Sem_Vagas {
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.Tooltip_Wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: auto;
+}
+
+.Tooltip_Wrapper.botao_lotado:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.Tooltip_Wrapper.botao_lotado:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+    z-index: 10;
+}
+
+.Linha_Inscritos {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.Sem_Vagas {
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.Badge_Encerrado {
+    background: #757575;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    width: max-content;
+}
+
+.Tooltip_Wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: auto;
+}
+
+.Tooltip_Wrapper.botao_lotado:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.Tooltip_Wrapper.botao_lotado:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+    z-index: 10;
 }

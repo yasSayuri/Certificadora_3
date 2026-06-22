@@ -2,11 +2,45 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../Componentes/Sidebar';
 import './ListaEventos.css';
 
+const eventoLotadoInjetado = {
+  _id: 'evento-lotado-injetado',
+  nome: 'Oficina de React Avançado',
+  data: '2026-07-05',
+  horarioInicio: '19:00',
+  horarioTermino: '21:00',
+  local: 'Laboratório 3',
+  vagas: 5,
+  tipo: 'Oficina',
+  inscritos: [
+    'usuario_teste_1',
+    'usuario_teste_2',
+    'usuario_teste_3',
+    'usuario_teste_4',
+    'usuario_teste_5'
+  ],
+  eventoInjetado: true
+};
+
+const eventoPassadoInjetado = {
+  _id: 'evento-passado-injetado',
+  nome: 'Palestra de Carreira em Tecnologia',
+  data: '2026-06-21',
+  horarioInicio: '14:00',
+  horarioTermino: '16:00',
+  local: 'Auditório Central',
+  vagas: 20,
+  tipo: 'Palestra',
+  inscritos: [
+    'usuario_teste_1',
+    'usuario_teste_2',
+    'usuario_teste_3'
+  ],
+  eventoInjetado: true
+};
+
 function ListaEventos() {
   const [eventosBD, setEventosBD] = useState([]);
   const [busca, setBusca] = useState('');
-  
-  // Novos estados para os filtros
   const [filtroTipo, setFiltroTipo] = useState('Todos');
   const [filtroVagas, setFiltroVagas] = useState(false);
   const [filtroInscrito, setFiltroInscrito] = useState(false);
@@ -28,6 +62,26 @@ function ListaEventos() {
 
   const idUsuario = localStorage.getItem('idUsuario');
 
+  const verificarEventoPassado = (dataEvento) => {
+    if (!dataEvento) return false;
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    const partesData = String(dataEvento).split('-').map(Number);
+
+    if (partesData.length === 3) {
+      const [ano, mes, dia] = partesData;
+      const dataComparacao = new Date(ano, mes - 1, dia);
+      dataComparacao.setHours(0, 0, 0, 0);
+      return dataComparacao < hoje;
+    }
+
+    const dataComparacao = new Date(dataEvento);
+    dataComparacao.setHours(0, 0, 0, 0);
+    return dataComparacao < hoje;
+  };
+
   const mostrarPopup = (mensagem, tipo = 'erro') => {
     setPopup({ visivel: true, mensagem, tipo });
     setTimeout(() => {
@@ -41,25 +95,39 @@ function ListaEventos() {
         const resposta = await fetch('http://localhost:3000/eventos');
         if (resposta.ok) {
           const dados = await resposta.json();
-          setEventosBD(dados);
+          setEventosBD([...dados, eventoLotadoInjetado, eventoPassadoInjetado]);
         }
-  } catch (error) {
-  console.error(error); // Agora a variável está sendo usada
-  mostrarPopup('Erro de conexão com o servidor.');
-}
+      } catch (error) {
+        console.error(error);
+        setEventosBD([eventoLotadoInjetado, eventoPassadoInjetado]);
+        mostrarPopup('Erro de conexão com o servidor.');
+      }
     };
+
     buscarEventos();
   }, []);
 
   const abrirModalCriar = () => {
     setEventoEditando(null);
-    setNome(''); setData(''); setHorarioInicio(''); setHorarioTermino(''); setLocal(''); setVagas(''); setTipo('Oficina');
+    setNome('');
+    setData('');
+    setHorarioInicio('');
+    setHorarioTermino('');
+    setLocal('');
+    setVagas('');
+    setTipo('Oficina');
     setModalOpen(true);
   };
 
   const abrirModalEditar = (evento) => {
     setEventoEditando(evento._id);
-    setNome(evento.nome); setData(evento.data); setHorarioInicio(evento.horarioInicio); setHorarioTermino(evento.horarioTermino); setLocal(evento.local); setVagas(evento.vagas); setTipo(evento.tipo);
+    setNome(evento.nome);
+    setData(evento.data);
+    setHorarioInicio(evento.horarioInicio);
+    setHorarioTermino(evento.horarioTermino);
+    setLocal(evento.local);
+    setVagas(evento.vagas);
+    setTipo(evento.tipo);
     setModalOpen(true);
   };
 
@@ -81,9 +149,19 @@ function ListaEventos() {
         const resposta = await fetch(`http://localhost:3000/eventos/${eventoEditando}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome, data, horarioInicio, horarioTermino, local, vagas: Number(vagas), tipo })
+          body: JSON.stringify({
+            nome,
+            data,
+            horarioInicio,
+            horarioTermino,
+            local,
+            vagas: Number(vagas),
+            tipo
+          })
         });
+
         const eventoAtualizado = await resposta.json();
+
         if (resposta.ok) {
           setEventosBD(eventosBD.map(ev => ev._id === eventoEditando ? eventoAtualizado : ev));
           mostrarPopup('Evento atualizado!', 'sucesso');
@@ -94,9 +172,19 @@ function ListaEventos() {
         const resposta = await fetch('http://localhost:3000/eventos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome, data, horarioInicio, horarioTermino, local, vagas: Number(vagas), tipo })
+          body: JSON.stringify({
+            nome,
+            data,
+            horarioInicio,
+            horarioTermino,
+            local,
+            vagas: Number(vagas),
+            tipo
+          })
         });
+
         const novoEvento = await resposta.json();
+
         if (resposta.ok) {
           setEventosBD([...eventosBD, novoEvento]);
           mostrarPopup('Evento criado com sucesso!', 'sucesso');
@@ -104,18 +192,22 @@ function ListaEventos() {
           mostrarPopup('Erro ao criar evento.');
         }
       }
+
       setModalOpen(false);
-} catch (error) {
-  console.error(error); // Agora a variável está sendo usada
-  mostrarPopup('Erro de conexão com o servidor.');
-}
+    } catch (error) {
+      console.error(error);
+      mostrarPopup('Erro de conexão com o servidor.');
+    }
   };
 
   const deletarEvento = async () => {
     if (!eventoParaDeletar) return;
-    
+
     try {
-      const resposta = await fetch(`http://localhost:3000/eventos/${eventoParaDeletar}`, { method: 'DELETE' });
+      const resposta = await fetch(`http://localhost:3000/eventos/${eventoParaDeletar}`, {
+        method: 'DELETE'
+      });
+
       if (resposta.ok) {
         setEventosBD(eventosBD.filter(ev => ev._id !== eventoParaDeletar));
         mostrarPopup('Evento excluído!', 'sucesso');
@@ -124,10 +216,10 @@ function ListaEventos() {
         mostrarPopup('Erro ao excluir evento.');
         setModalDeletarEventoOpen(false);
       }
-} catch (error) {
-  console.error(error); // Agora a variável está sendo usada
-  mostrarPopup('Erro de conexão com o servidor.');
-}
+    } catch (error) {
+      console.error(error);
+      mostrarPopup('Erro de conexão com o servidor.');
+    }
   };
 
   const inscreverEvento = async (id) => {
@@ -135,35 +227,39 @@ function ListaEventos() {
       mostrarPopup('Você precisa estar logado para se inscrever.');
       return;
     }
+
     try {
       const resposta = await fetch(`http://localhost:3000/eventos/${id}/inscrever`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuarioId: idUsuario })
       });
+
       if (resposta.ok) {
         const data = await resposta.json();
         setEventosBD(eventosBD.map(ev => ev._id === id ? data.evento : ev));
+
         const taInscrito = data.evento.inscritos.includes(idUsuario);
         mostrarPopup(taInscrito ? 'Inscrição confirmada!' : 'Inscrição cancelada!', 'sucesso');
       } else {
         const data = await resposta.json();
         mostrarPopup(data.erro || 'Erro ao processar inscrição.');
       }
-} catch (error) {
-  console.error(error); // Agora a variável está sendo usada
-  mostrarPopup('Erro de conexão com o servidor.');
-}
+    } catch (error) {
+      console.error(error);
+      mostrarPopup('Erro de conexão com o servidor.');
+    }
   };
 
-  // Nova Lógica de Filtros Combinada
   const eventosFiltrados = eventosBD.filter(evento => {
     const isInscrito = evento.inscritos && evento.inscritos.includes(idUsuario);
-    
+    const totalInscritos = evento.inscritos ? evento.inscritos.length : 0;
+    const vagasRestantes = Number(evento.vagas) - totalInscritos;
+    const eventoJaPassou = verificarEventoPassado(evento.data);
+
     const matchBusca = evento.nome.toLowerCase().includes(busca.toLowerCase());
     const matchTipo = filtroTipo === 'Todos' || evento.tipo === filtroTipo;
-    const vagasRestantes = evento.vagas - (evento.inscritos ? evento.inscritos.length : 0);
-    const matchVagas = filtroVagas ? vagasRestantes > 0 : true;
+    const matchVagas = filtroVagas ? vagasRestantes > 0 && !eventoJaPassou : true;
     const matchInscrito = filtroInscrito ? isInscrito : true;
 
     return matchBusca && matchTipo && matchVagas && matchInscrito;
@@ -185,26 +281,30 @@ function ListaEventos() {
             <h1 className="greeting">Lista de Eventos</h1>
             <p id="Titulo">Explore e participe das nossas atividades</p>
           </div>
+
           <div className="header_acoes">
-            <input 
-              type="text" 
-              placeholder="Pesquisar evento..." 
-              value={busca} 
-              onChange={(e) => setBusca(e.target.value)} 
+            <input
+              type="text"
+              placeholder="Pesquisar evento..."
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
               className="Input_Pesquisa"
             />
-            <button className="Botao_Criar" onClick={abrirModalCriar}>Criar Novo Evento</button>
+
+            <button className="Botao_Criar" onClick={abrirModalCriar}>
+              Criar Novo Evento
+            </button>
           </div>
         </header>
 
-        {/* --- NOVA BARRA DE FILTROS --- */}
         <div className="Barra_Filtros">
           <div className="Filtro_Grupo">
             <label htmlFor="filtroTipo">Tipo:</label>
-            <select 
-              id="filtroTipo" 
-              className="Select_Filtro" 
-              value={filtroTipo} 
+
+            <select
+              id="filtroTipo"
+              className="Select_Filtro"
+              value={filtroTipo}
               onChange={(e) => setFiltroTipo(e.target.value)}
             >
               <option value="Todos">Todos</option>
@@ -215,10 +315,10 @@ function ListaEventos() {
 
           <div className="Filtro_Grupo">
             <label>
-              <input 
-                type="checkbox" 
-                checked={filtroVagas} 
-                onChange={(e) => setFiltroVagas(e.target.checked)} 
+              <input
+                type="checkbox"
+                checked={filtroVagas}
+                onChange={(e) => setFiltroVagas(e.target.checked)}
               />
               Com vagas disponíveis
             </label>
@@ -227,10 +327,10 @@ function ListaEventos() {
           {idUsuario && (
             <div className="Filtro_Grupo">
               <label>
-                <input 
-                  type="checkbox" 
-                  checked={filtroInscrito} 
-                  onChange={(e) => setFiltroInscrito(e.target.checked)} 
+                <input
+                  type="checkbox"
+                  checked={filtroInscrito}
+                  onChange={(e) => setFiltroInscrito(e.target.checked)}
                 />
                 Eventos que estou inscrito
               </label>
@@ -246,38 +346,58 @@ function ListaEventos() {
           ) : (
             eventosFiltrados.map(evento => {
               const isInscrito = evento.inscritos && evento.inscritos.includes(idUsuario);
-              const vagasRestantes = evento.vagas - (evento.inscritos ? evento.inscritos.length : 0);
+              const totalInscritos = evento.inscritos ? evento.inscritos.length : 0;
+              const vagasRestantes = Number(evento.vagas) - totalInscritos;
               const estaLotado = vagasRestantes <= 0 && !isInscrito;
+              const eventoJaPassou = verificarEventoPassado(evento.data);
+              const botaoDesabilitado = estaLotado || eventoJaPassou;
+              const mensagemTooltip = eventoJaPassou ? 'Evento já passou' : estaLotado ? 'Evento lotado' : '';
+              const textoBotao = eventoJaPassou ? 'Evento Encerrado' : estaLotado ? 'Evento Lotado' : isInscrito ? 'Cancelar Inscrição' : 'Inscrever-se';
+
               return (
-                <div key={evento._id} className={`Card_Evento ${estaLotado ? 'card_lotado' : ''}`}>
-                  <div className="Acoes_Card">
-                    <button className="Btn_Icone edit" onClick={() => abrirModalEditar(evento)}>
-                      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                    </button>
-                    <button className="Btn_Icone del" onClick={() => abrirModalDeletar(evento._id)}>
-                      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                    </button>
-                  </div>
-                  
+                <div key={evento._id} className={`Card_Evento ${botaoDesabilitado ? 'card_lotado' : ''}`}>
+                  {!evento.eventoInjetado && (
+                    <div className="Acoes_Card">
+                      <button className="Btn_Icone edit" onClick={() => abrirModalEditar(evento)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                          <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                        </svg>
+                      </button>
+
+                      <button className="Btn_Icone del" onClick={() => abrirModalDeletar(evento._id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+
                   <div className="Header_Card_Info">
                     <div className="Badge_Tipo">{evento.tipo}</div>
-                    {isInscrito && <div className="Badge_Inscrito">Você está inscrita neste</div>}
+                    {isInscrito && <div className="Badge_Inscrito">Você está inscrita neste evento</div>}
                     {estaLotado && <div className="Badge_Lotado">Evento Lotado</div>}
+                    {eventoJaPassou && <div className="Badge_Encerrado">Evento Encerrado</div>}
                   </div>
-                  
+
                   <h3>{evento.nome}</h3>
                   <p><strong>Data:</strong> {evento.data}</p>
                   <p><strong>Horário:</strong> {evento.horarioInicio} - {evento.horarioTermino}</p>
                   <p><strong>Local:</strong> {evento.local}</p>
-                  <p><strong>Vagas restantes:</strong> {vagasRestantes} / {evento.vagas}</p>
-                  
-                  <button 
-                    className={`Botao_Increver ${isInscrito ? 'cancelar' : ''} ${estaLotado ? 'lotado' : ''}`} 
-                    onClick={() => inscreverEvento(evento._id)}
-                    disabled={estaLotado}
-                  >
-                    {estaLotado ? 'Evento Lotado' : isInscrito ? 'Cancelar Inscrição' : 'Inscrever-se'}
-                  </button>
+
+                  <p className="Linha_Inscritos">
+                    <span><strong>Inscritos:</strong> {totalInscritos} / {evento.vagas}</span>
+                    {estaLotado && <span className="Sem_Vagas">Sem vagas</span>}
+                  </p>
+
+                  <div className={`Tooltip_Wrapper ${botaoDesabilitado ? 'botao_lotado' : ''}`} data-tooltip={mensagemTooltip}>
+                    <button
+                      className={`Botao_Increver ${isInscrito ? 'cancelar' : ''} ${botaoDesabilitado ? 'lotado' : ''}`}
+                      onClick={() => inscreverEvento(evento._id)}
+                      disabled={botaoDesabilitado}
+                    >
+                      {textoBotao}
+                    </button>
+                  </div>
                 </div>
               );
             })
@@ -289,25 +409,86 @@ function ListaEventos() {
         <div className="modal_overlay">
           <div className="modal_box modal_evento">
             <h3>{eventoEditando ? 'Editar Evento' : 'Criar Novo Evento'}</h3>
+
             <div className="toggle_container">
-              <button type="button" className={`toggle_btn ${tipo === 'Oficina' ? 'active' : ''}`} onClick={() => setTipo('Oficina')}>Oficina</button>
-              <button type="button" className={`toggle_btn ${tipo === 'Palestra' ? 'active' : ''}`} onClick={() => setTipo('Palestra')}>Palestra</button>
+              <button
+                type="button"
+                className={`toggle_btn ${tipo === 'Oficina' ? 'active' : ''}`}
+                onClick={() => setTipo('Oficina')}
+              >
+                Oficina
+              </button>
+
+              <button
+                type="button"
+                className={`toggle_btn ${tipo === 'Palestra' ? 'active' : ''}`}
+                onClick={() => setTipo('Palestra')}
+              >
+                Palestra
+              </button>
             </div>
+
             <form onSubmit={salvarEvento} className="modal_form form_evento">
-              <input type="text" placeholder="Nome do evento" value={nome} onChange={(e) => setNome(e.target.value)} required />
+              <input
+                type="text"
+                placeholder="Nome do evento"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                required
+              />
+
               <div className="form_linha">
-                <input type="date" placeholder="Data" value={data} onChange={(e) => setData(e.target.value)} required />
-                <input type="number" placeholder="Vagas" value={vagas} onChange={(e) => setVagas(e.target.value)} required />
+                <input
+                  type="date"
+                  placeholder="Data"
+                  value={data}
+                  onChange={(e) => setData(e.target.value)}
+                  required
+                />
+
+                <input
+                  type="number"
+                  placeholder="Vagas"
+                  value={vagas}
+                  onChange={(e) => setVagas(e.target.value)}
+                  required
+                />
               </div>
+
               <div className="form_linha">
-                <input type="time" placeholder="Horário Início" value={horarioInicio} onChange={(e) => setHorarioInicio(e.target.value)} required />
-                <input type="time" placeholder="Horário Término" value={horarioTermino} onChange={(e) => setHorarioTermino(e.target.value)} required />
+                <input
+                  type="time"
+                  placeholder="Horário Início"
+                  value={horarioInicio}
+                  onChange={(e) => setHorarioInicio(e.target.value)}
+                  required
+                />
+
+                <input
+                  type="time"
+                  placeholder="Horário Término"
+                  value={horarioTermino}
+                  onChange={(e) => setHorarioTermino(e.target.value)}
+                  required
+                />
               </div>
-              <input type="text" placeholder="Local" value={local} onChange={(e) => setLocal(e.target.value)} required />
-              
+
+              <input
+                type="text"
+                placeholder="Local"
+                value={local}
+                onChange={(e) => setLocal(e.target.value)}
+                required
+              />
+
               <div className="modal_botoes">
-                <button type="button" className="btn_cancelar" onClick={() => setModalOpen(false)}>Cancelar</button>
-                <button type="submit" className="btn_salvar">Salvar Evento</button>
+                <button type="button" className="btn_cancelar" onClick={() => setModalOpen(false)}>
+                  Cancelar
+                </button>
+
+                <button type="submit" className="btn_salvar">
+                  Salvar Evento
+                </button>
               </div>
             </form>
           </div>
@@ -318,12 +499,28 @@ function ListaEventos() {
         <div className="modal_overlay">
           <div className="modal_box">
             <h3 style={{ color: '#d32f2f' }}>Excluir Evento</h3>
+
             <p style={{ marginBottom: '20px', color: '#555' }}>
               Tem certeza que deseja excluir este evento? Esta ação <strong>não pode ser desfeita</strong>.
             </p>
+
             <div className="modal_botoes">
-              <button type="button" className="btn_cancelar" onClick={() => setModalDeletarEventoOpen(false)}>Cancelar</button>
-              <button type="button" className="btn_salvar" style={{ background: '#d32f2f' }} onClick={deletarEvento}>Sim, Excluir</button>
+              <button
+                type="button"
+                className="btn_cancelar"
+                onClick={() => setModalDeletarEventoOpen(false)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                className="btn_salvar"
+                style={{ background: '#d32f2f' }}
+                onClick={deletarEvento}
+              >
+                Sim, Excluir
+              </button>
             </div>
           </div>
         </div>
