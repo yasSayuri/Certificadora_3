@@ -50,9 +50,12 @@ function Sidebar({ paginaAtiva }) {
           </Link>
 
           <Link to="/configuracao" className={`nav_item ${paginaAtiva === 'configuracao' ? 'active' : ''}`}>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-340q-58 0-99-42t-41-99q0-58 41-99t99-42q58 0 99 42t41 99q0 58-41 99t-99 42Zm-20 256L428-142q-20-5-38-14t-33-21l-55 23-45-78 47-36q-2-10-3-20.5t-1-21.5q0-11 1-21.5t3-20.5l-47-36 45-78 55 23q15-12 33-21t38-14l32-58h90l32 58q20 5 38 14t33 21l55-23 45 78-47 36q2 10 3 20.5t1 21.5q0 11-1 21.5t-3 20.5l47 36-45 78-55-23q-15 12-33 21t-38 14l-32 58h-90Z"/></svg>
-            Configuraçao
-          </Link>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+            <path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.28 7.28 0 0 0-1.69-.98L14.5 2.42A.5.5 0 0 0 14 2h-4a.5.5 0 0 0-.5.42L9.12 5.07c-.61.24-1.18.56-1.69.98l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.05.32-.07.65-.07.98s.02.66.07.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1c.51.42 1.08.74 1.69.98l.38 2.65a.5.5 0 0 0 .5.42h4a.5.5 0 0 0 .5-.42l.38-2.65c.61-.24 1.18-.56 1.69-.98l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65Z" />
+          </svg>
+          Configurações
+        </Link>
         </nav>
 
         <Link to="/" className="nav_logout" onClick={() => localStorage.clear()}>
