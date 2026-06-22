@@ -592,7 +592,7 @@ function Certificados() {
       <main className="dashboard_main certificados_main">
         <header className="dashboard_header certificados_header">
           <h1 className="greeting">Meus Certificados</h1>
-          <p id="Titulo">
+          <p className="titulo_dashboard">
             Visualize seus eventos concluídos e acompanhe os próximos eventos em que você está inscrito.
           </p>
         </header>

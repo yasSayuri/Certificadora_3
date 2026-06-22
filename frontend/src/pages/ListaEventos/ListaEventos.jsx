@@ -279,7 +279,7 @@ function ListaEventos() {
         <header className="header_eventos">
           <div>
             <h1 className="greeting">Lista de Eventos</h1>
-            <p id="Titulo">Explore e participe das nossas atividades</p>
+            <p className="titulo_dashboard">Explore e participe das nossas atividades</p>
           </div>
 
           <div className="header_acoes">

@@ -43,7 +43,7 @@ function Dashboard() {
       <main className="dashboard_main dashboard_graficos_main">
         <header className="dashboard_header dashboard_graficos_header">
           <h1 className="greeting">{saudacao} de volta, {primeiroNome}!</h1>
-          <p id="Titulo">Painel de acompanhamento dos eventos</p>
+          <p className="titulo_dashboard">Painel de acompanhamento dos eventos</p>
         </header>
 
         <div className="dashboard_graficos_content">
